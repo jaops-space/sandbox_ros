@@ -22,3 +22,10 @@ services:
     image: ros:foxy
     stdin_open: true
     tty: true
+
+  rust:
+    build:
+      context: .
+      dockerfile: rust.Dockerfile
+    stdin_open: true
+    tty: true
