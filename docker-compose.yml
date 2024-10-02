@@ -1,0 +1,24 @@
+services:
+  ros1:
+    build:
+      context: .
+      dockerfile: ros1.Dockerfile
+    command: roslaunch roscpp_tutorials talker_listener.launch
+
+  ros2:
+    build:
+      context: .
+      dockerfile: ros2.Dockerfile
+    command: ros2 run demo_nodes_cpp talker
+
+  bridge:
+    image: ros:foxy-ros1-bridge
+    environment:
+      - "ROS_HOSTNAME=bridge"
+      - "ROS_MASTER_URI=http://ros1:11311"
+    command: ros2 run ros1_bridge dynamic_bridge
+
+  ubuntu20:
+    image: ros:foxy
+    stdin_open: true
+    tty: true
