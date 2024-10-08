@@ -1,0 +1,35 @@
+[package]
+name = "rclrs"
+version = "0.3.1"
+# This project is not military-sponsored, Jacob's employment contract just requires him to use this email address
+authors = ["Esteve Fernandez <esteve@apache.org>", "Nikolai Morin <nnmmgit@gmail.com>", "Jacob Hassold <jacob.a.hassold.civ@army.mil>"]
+edition = "2021"
+license = "Apache-2.0"
+description = "A ROS 2 client library for developing robotics applications in Rust"
+rust-version = "1.63"
+
+[lib]
+path = "src/lib.rs"
+
+# Please keep the list of dependencies alphabetically sorted,
+# and also state why each dependency is needed.
+[dependencies]
+# Needed for dynamically finding type support libraries 
+ament_rs = { version = "0.2", optional = true }
+# Needed for clients
+futures = "0.3"
+# Needed for dynamic messages
+libloading = { version = "0.7", optional = true }
+# Needed for the Message trait, among others
+rosidl_runtime_rs = "0.3"
+
+[dev-dependencies]
+# Needed for e.g. writing yaml files in tests
+tempfile = "3.3.0"
+
+[build-dependencies]
+# Needed for FFI
+bindgen = "0.59.1"
+
+[features]
+dyn_msg = ["ament_rs", "libloading"]
