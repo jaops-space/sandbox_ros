@@ -1,5 +1,5 @@
 ARG ROS_DISTRO=foxy
-FROM ros:$ROS_DISTRO as base
+FROM ros:$ROS_DISTRO AS base
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
@@ -25,5 +25,17 @@ RUN mkdir -p /workspace && echo "Did you forget to mount the repository into the
 
 RUN cd /workspace && git clone https://github.com/ros2-rust/ros2_rust.git src/ros2_rust && cd src/ros2_rust && git checkout 047f48387adde48ed55b69506d43c0098ab3caad 
 RUN cd /workspace && vcs import src < src/ros2_rust/ros2_rust_foxy.repos && . /opt/ros/foxy/setup.sh && colcon build
+
+# for convenience:
+RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /root/.bashrc
+RUN echo "source /workspace/install/setup.bash" >> /root/.bashrc
+RUN echo "alias cc='colcon build --packages-select'" >> /root/.bashrc
+RUN echo "alias ccc='colcon build --packages-select examples_rclrs_minimal_pub_sub'" >> /root/.bashrc
+RUN echo "alias ss='ros2 run examples_rclrs_minimal_pub_sub'" >> /root/.bashrc
+RUN echo "alias sss='ros2 run examples_rclrs_minimal_pub_sub sandbox_sub'" >> /root/.bashrc
+RUN echo "alias kk='clear'" >> /root/.bashrc
+# save the bash history immediately on each execution
+RUN echo 'export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"' >> /root/.bashrc   
+
 
 WORKDIR /workspace

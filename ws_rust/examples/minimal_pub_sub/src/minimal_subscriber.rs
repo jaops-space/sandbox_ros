@@ -15,7 +15,7 @@ fn main() -> Result<(), Error> {
         move |msg: std_msgs::msg::String| {
             num_messages += 1;
             println!("I heard: '{}'", msg.data);
-            println!("(Got {} messages so far)", num_messages);
+            println!("(Got {} messages so far. much wow)", num_messages);
         },
     )?;
 

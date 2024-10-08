@@ -19,9 +19,16 @@ services:
     command: ros2 run ros1_bridge dynamic_bridge
 
   ubuntu20:
-    image: ros:foxy
+    build:
+      context: .
+      dockerfile: ubuntu20.Dockerfile
+    command: /bin/bash
     stdin_open: true
     tty: true
+    volumes:
+      - ./ws_ros2:/ws_ros2
+      # convenience: make bash history persistent
+      - ubuntu20_bash_history:/root/.bash_history
 
   rust:
     build:
@@ -29,3 +36,22 @@ services:
       dockerfile: rust.Dockerfile
     stdin_open: true
     tty: true
+    volumes:
+      - ./ws_rust:/workspace/src/ros2_rust/
+      - build_artifacts:/workspace/build/
+      - install_artifacts:/workspace/install/
+      - log_artifacts:/workspace/log/
+      # to avoid time skew in saved logs, make sure container time is in sync with host
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      # convenience: make bash history persistent
+      - rust_bash_history:/root/.bash_history
+
+
+# named volumes to store build artifacts to avoid re-compilation when recreating the container
+volumes:
+  build_artifacts:
+  install_artifacts:
+  log_artifacts:
+  rust_bash_history:
+  ubuntu20_bash_history:

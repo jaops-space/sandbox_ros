@@ -21,6 +21,10 @@ path = "src/zero_copy_subscriber.rs"
 name = "zero_copy_publisher"
 path = "src/zero_copy_publisher.rs"
 
+[[bin]]
+name = "sandbox_sub"
+path = "src/sandbox_sub.rs"
+
 [dependencies]
 anyhow = {version = "1", features = ["backtrace"]}
 
@@ -31,6 +35,9 @@ version = "0.3"
 version = "0.3"
 
 [dependencies.std_msgs]
+version = "*"
+
+[dependencies.sensor_msgs]
 version = "*"
 
 [package.metadata.ros]
