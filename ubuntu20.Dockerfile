@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /root/.bashrc
 # save the bash history immediately on each execution
-RUN echo 'export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"' >> /root/.bashrc   
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+    && echo "$SNIPPET" >> "/root/.bashrc"
 
 # launch ros package
 # CMD ["ros2", "run", "demo_nodes_cpp", "listener"]

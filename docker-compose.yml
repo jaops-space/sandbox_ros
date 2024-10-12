@@ -28,7 +28,7 @@ services:
     volumes:
       - ./ws_ros2:/ws_ros2
       # convenience: make bash history persistent
-      - ubuntu20_bash_history:/root/.bash_history
+      - ubuntu20_command_history:/commandhistory
 
   rust:
     build:
@@ -45,7 +45,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       # convenience: make bash history persistent
-      - rust_bash_history:/root/.bash_history
+      - rust_command_history:/commandhistory
 
 
 # named volumes to store build artifacts to avoid re-compilation when recreating the container
@@ -53,5 +53,5 @@ volumes:
   build_artifacts:
   install_artifacts:
   log_artifacts:
-  rust_bash_history:
-  ubuntu20_bash_history:
+  rust_command_history:
+  ubuntu20_command_history:

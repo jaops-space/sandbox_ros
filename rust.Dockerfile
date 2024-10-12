@@ -35,7 +35,8 @@ RUN echo "alias ss='ros2 run examples_rclrs_minimal_pub_sub'" >> /root/.bashrc
 RUN echo "alias sss='ros2 run examples_rclrs_minimal_pub_sub sandbox_sub'" >> /root/.bashrc
 RUN echo "alias kk='clear'" >> /root/.bashrc
 # save the bash history immediately on each execution
-RUN echo 'export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"' >> /root/.bashrc   
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+    && echo "$SNIPPET" >> "/root/.bashrc"
 
 
 WORKDIR /workspace
