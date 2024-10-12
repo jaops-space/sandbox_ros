@@ -40,5 +40,8 @@ version = "*"
 [dependencies.sensor_msgs]
 version = "*"
 
+[dependencies.rcl_interfaces]
+version = "*"
+
 [package.metadata.ros]
 install_to_share = ["launch"]
